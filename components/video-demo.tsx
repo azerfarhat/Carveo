@@ -1,9 +1,23 @@
 'use client'
 
+import { useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Play } from 'lucide-react'
 
 export function VideoDemo() {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [isPlaying, setIsPlaying] = useState(false)
+
+  const togglePlay = () => {
+    if (!videoRef.current) return
+    if (isPlaying) {
+      videoRef.current.pause()
+    } else {
+      videoRef.current.play()
+    }
+    setIsPlaying(!isPlaying)
+  }
+
   return (
     <section id="demo" className="py-28 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/3 to-background pointer-events-none" />
@@ -32,17 +46,31 @@ export function VideoDemo() {
           transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-4xl mx-auto"
         >
-          <div className="relative aspect-video rounded-2xl overflow-hidden bg-card border border-border group cursor-pointer">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/5" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-20 h-20 rounded-full bg-primary/90 flex items-center justify-center shadow-2xl shadow-primary/30 group-hover:scale-110 transition-transform duration-300">
-                <Play className="w-8 h-8 text-white ml-1" />
-              </div>
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-card/60 via-transparent to-transparent" />
-            <div className="absolute bottom-6 left-6 right-6">
-              <p className="text-sm text-muted-foreground">Vidéo de démonstration</p>
-            </div>
+          <div
+            className="relative aspect-video rounded-2xl overflow-hidden bg-card border border-border group cursor-pointer"
+            onClick={togglePlay}
+          >
+            <video
+              ref={videoRef}
+              src="/Video%20Project%208.mp4"
+              className="absolute inset-0 w-full h-full object-cover"
+              onEnded={() => setIsPlaying(false)}
+              playsInline
+            />
+            {!isPlaying && (
+              <>
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/5" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-20 h-20 rounded-full bg-primary/90 flex items-center justify-center shadow-2xl shadow-primary/30 group-hover:scale-110 transition-transform duration-300">
+                    <Play className="w-8 h-8 text-white ml-1" />
+                  </div>
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-card/60 via-transparent to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6">
+                  <p className="text-sm text-muted-foreground">Vidéo de démonstration</p>
+                </div>
+              </>
+            )}
           </div>
         </motion.div>
       </div>

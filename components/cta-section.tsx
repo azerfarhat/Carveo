@@ -5,6 +5,10 @@ import { Button } from '@/components/ui/button'
 import { ArrowRight, Sparkles } from 'lucide-react'
 
 export function CTASection() {
+  const scrollToContact = () => {
+    const el = document.getElementById('contact')
+    el?.scrollIntoView({ behavior: 'smooth' })
+  }
   return (
     <section className="py-24 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background pointer-events-none" />
@@ -34,11 +38,20 @@ export function CTASection() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button size="lg" className="bg-primary hover:bg-primary/90 gap-2 px-8 h-12 shadow-lg shadow-primary/25 group">
+              <Button
+                size="lg"
+                className="bg-primary hover:bg-primary/90 gap-2 px-8 h-12 shadow-lg shadow-primary/25 group cursor-pointer"
+                onClick={scrollToContact}
+              >
                 Essai gratuit 14 jours
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button variant="outline" size="lg" className="h-12 border-muted-foreground/20">
+              <Button
+                variant="outline"
+                size="lg"
+                className="h-12 border-muted-foreground/20 cursor-pointer"
+                onClick={scrollToContact}
+              >
                 Planifier une démo
               </Button>
             </div>

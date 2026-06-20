@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter, Space_Grotesk } from 'next/font/google'
 import './globals.css'
 import { ScrollProgress } from '@/components/scroll-progress'
+import { BackgroundMusic } from '@/components/background-music'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -49,6 +50,7 @@ export default function RootLayout({
         <ScrollProgress />
         <div className="noise-overlay" />
         {children}
+        <BackgroundMusic />
       </body>
     </html>
   )

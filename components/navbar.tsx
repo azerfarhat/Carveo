@@ -18,6 +18,11 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const { scrollY } = useScroll()
 
+  const scrollToContact = () => {
+    const el = document.getElementById('contact')
+    el?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   useMotionValueEvent(scrollY, 'change', (latest) => {
     setScrolled(latest > 50)
   })
@@ -53,7 +58,7 @@ export function Navbar() {
         </div>
 
         <div className="hidden md:flex items-center gap-3">
-          <Button size="sm" className="bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25">
+          <Button size="sm" className="bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25 cursor-pointer" onClick={scrollToContact}>
             Démarrer gratuitement
           </Button>
         </div>
@@ -87,7 +92,7 @@ export function Navbar() {
               </Link>
             ))}
             <div className="flex flex-col gap-2 pt-4 mt-2 border-t border-border">
-              <Button size="sm" className="bg-primary hover:bg-primary/90 w-full">
+              <Button size="sm" className="bg-primary hover:bg-primary/90 w-full cursor-pointer" onClick={scrollToContact}>
                 Démarrer gratuitement
               </Button>
             </div>

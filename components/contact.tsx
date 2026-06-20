@@ -1,17 +1,50 @@
 'use client'
 
+import { useState, FormEvent } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Loader2 } from 'lucide-react'
+import { toast } from 'sonner'
 
 const team = [
-  { name: 'Anas BOUSSEHMINE', role: 'Développeur ERP', img: '/anas.png' },
-  { name: 'Azer FARHAT', role: 'Développeur ERP', img: '/azer.jpeg' },
+  { name: 'Anas BOUSSEHMINE', role: 'Full-Stack Developer', img: '/anas.png' },
+  { name: 'Azer FARHAT', role: 'Full-Stack Developer', img: '/azer.jpeg' },
 ]
 
 export function Contact() {
+  const [loading, setLoading] = useState(false)
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setLoading(true)
+
+    const form = new FormData(e.currentTarget)
+    const data = {
+      firstName: form.get('firstName'),
+      lastName: form.get('lastName'),
+      email: form.get('email'),
+      agency: form.get('agency'),
+      fleetSize: form.get('fleetSize'),
+    }
+
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    })
+
+    setLoading(false)
+
+    if (res.ok) {
+      toast.success('Demande envoyée avec succès !')
+      ;(e.target as HTMLFormElement).reset()
+    } else {
+      toast.error("Erreur lors de l'envoi. Réessayez plus tard.")
+    }
+  }
+
   return (
     <section id="contact" className="py-28 relative">
       <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent pointer-events-none" />
@@ -32,10 +65,14 @@ export function Contact() {
                 key={member.name}
                 className="text-center p-6 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all duration-300"
               >
-                <div className="w-28 h-28 rounded-full bg-gradient-to-br from-primary/30 to-primary/10 mx-auto mb-4 flex items-center justify-center overflow-hidden">
-                  <span className="text-3xl font-heading font-bold text-primary">
-                    {member.name.split(' ').map(n => n[0]).join('')}
-                  </span>
+                <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden">
+                  <Image
+                    src={member.img}
+                    alt={member.name}
+                    width={128}
+                    height={128}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <h3 className="text-base font-heading font-semibold">{member.name}</h3>
                 <p className="text-sm text-muted-foreground mt-0.5">{member.role}</p>
@@ -53,19 +90,23 @@ export function Contact() {
         >
           <div className="bg-card rounded-2xl border border-border p-8">
             <h3 className="text-xl font-heading font-semibold mb-6 text-center">Demander une démo</h3>
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleSubmit}>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label className="text-sm text-muted-foreground">Prénom</label>
                   <Input
+                    name="firstName"
                     placeholder="Ali"
+                    required
                     className="bg-secondary/50 border-border focus:border-primary/50 transition-colors"
                   />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm text-muted-foreground">Nom</label>
                   <Input
+                    name="lastName"
                     placeholder="Ammar"
+                    required
                     className="bg-secondary/50 border-border focus:border-primary/50 transition-colors"
                   />
                 </div>
@@ -74,8 +115,10 @@ export function Contact() {
               <div className="space-y-2">
                 <label className="text-sm text-muted-foreground">Email professionnel</label>
                 <Input
+                  name="email"
                   type="email"
                   placeholder="Ali@gmail.com"
+                  required
                   className="bg-secondary/50 border-border focus:border-primary/50 transition-colors"
                 />
               </div>
@@ -83,14 +126,19 @@ export function Contact() {
               <div className="space-y-2">
                 <label className="text-sm text-muted-foreground">Nom de l&apos;agence</label>
                 <Input
+                  name="agency"
                   placeholder="Mon agence"
+                  required
                   className="bg-secondary/50 border-border focus:border-primary/50 transition-colors"
                 />
               </div>
 
               <div className="space-y-2">
                 <label className="text-sm text-muted-foreground">Taille de la flotte</label>
-                <select className="w-full rounded-lg bg-secondary/50 border border-border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all">
+                <select
+                  name="fleetSize"
+                  className="w-full rounded-lg bg-secondary/50 border border-border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all"
+                >
                   <option>1-20 véhicules</option>
                   <option>21-50 véhicules</option>
                   <option>51-100 véhicules</option>
@@ -98,9 +146,19 @@ export function Contact() {
                 </select>
               </div>
 
-              <Button className="w-full bg-primary hover:bg-primary/90 gap-2 mt-2 h-11 shadow-lg shadow-primary/25 group">
-                Demander une démo
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <Button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-primary hover:bg-primary/90 gap-2 mt-2 h-11 shadow-lg shadow-primary/25 group"
+              >
+                {loading ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <>
+                    Demander une démo
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </>
+                )}
               </Button>
 
               <p className="text-xs text-muted-foreground text-center">

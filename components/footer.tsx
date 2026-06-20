@@ -1,9 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { ArrowRight } from 'lucide-react'
 
 const footerLinks = {
   product: [
@@ -39,23 +36,7 @@ export function Footer() {
               La solution de gestion de flotte nouvelle génération pour les agences de location de véhicules.
             </p>
 
-            <div className="flex gap-3">
-              <div className="relative flex-1 max-w-xs">
-                <Input
-                  placeholder="Votre email"
-                  className="bg-secondary/50 border-border pr-20 text-sm h-10"
-                />
-                <Button
-                  size="sm"
-                  className="absolute right-1 top-1/2 -translate-y-1/2 bg-primary hover:bg-primary/90 h-8 px-3"
-                >
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Button>
-              </div>
-            </div>
-            <p className="text-xs text-muted-foreground mt-2">
-              Restez informé des nouveautés Carveo
-            </p>
+
           </div>
 
           <div>

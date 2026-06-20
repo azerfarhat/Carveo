@@ -22,7 +22,7 @@ const plans = [
   {
     name: 'Professional',
     description: 'Pour les agences en croissance',
-    price: '149',
+    price: '119',
     period: '/mois',
     features: [
       "Jusqu'à 100 véhicules",
@@ -34,25 +34,14 @@ const plans = [
     ],
     popular: true,
   },
-  {
-    name: 'Enterprise',
-    description: 'Pour les grandes flottes',
-    price: 'Sur mesure',
-    period: '',
-    features: [
-      'Véhicules illimités',
-      'Utilisateurs illimités',
-      'Fonctionnalités premium',
-      'Account manager dédié',
-      'SLA garanti 99.99%',
-      'Intégrations sur mesure',
-      'Formation incluse',
-    ],
-    popular: false,
-  },
 ]
 
 export function Pricing() {
+  const scrollToContact = () => {
+    const el = document.getElementById('contact')
+    el?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <section id="pricing" className="py-28 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/3 to-background pointer-events-none" />
@@ -74,7 +63,7 @@ export function Pricing() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
           {plans.map((plan, index) => (
             <motion.div
               key={plan.name}
@@ -121,14 +110,15 @@ export function Pricing() {
               </ul>
 
               <Button
-                className={`w-full h-11 ${
+                className={`w-full h-11 cursor-pointer ${
                   plan.popular
                     ? 'bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25'
                     : 'bg-secondary hover:bg-secondary/80'
                 }`}
                 variant={plan.popular ? 'default' : 'secondary'}
+                onClick={scrollToContact}
               >
-                {plan.price === 'Sur mesure' ? 'Nous contacter' : 'Commencer'}
+                Commencer
               </Button>
             </motion.div>
           ))}

@@ -97,10 +97,10 @@ export function Features() {
                       <Icon className="w-5 h-5 text-primary" />
                     </div>
 
-                    <h3 className="text-lg font-heading font-semibold mb-2.5">{feature.title}</h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
+                    <h3 className="text-lg font-heading font-semibold mb-2">{feature.title}</h3>
+                    <div className="text-sm leading-relaxed" style={{ color: '#83827d' }}>
                       {feature.description}
-                    </p>
+                    </div>
                   </div>
                 </div>
               </motion.div>

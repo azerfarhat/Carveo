@@ -12,8 +12,8 @@ const stats = [
 ]
 
 export function Hero() {
-  const scrollToDemo = () => {
-    const el = document.getElementById('demo')
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id)
     el?.scrollIntoView({ behavior: 'smooth' })
   }
 
@@ -41,7 +41,11 @@ export function Hero() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-            <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2 px-8 h-12 shadow-lg shadow-primary/25 group">
+            <Button
+              size="lg"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2 px-8 h-12 shadow-lg shadow-primary/25 group cursor-pointer"
+              onClick={() => scrollTo('contact')}
+            >
               Commencer maintenant
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Button>
@@ -49,7 +53,7 @@ export function Hero() {
               size="lg"
               variant="outline"
               className="gap-2 px-8 h-12 border-muted-foreground/20 hover:bg-primary/10 hover:border-primary/30 cursor-pointer"
-              onClick={scrollToDemo}
+              onClick={() => scrollTo('demo')}
             >
               <Play className="w-4 h-4" />
               Voir la démo
