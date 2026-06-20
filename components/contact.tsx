@@ -5,12 +5,12 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { ArrowRight, Loader2 } from 'lucide-react'
+import { ArrowRight, Loader2, Linkedin, Globe } from 'lucide-react'
 import { toast } from 'sonner'
 
 const team = [
-  { name: 'Anas BOUSSEHMINE', role: 'Full-Stack Developer', img: '/anas.png' },
-  { name: 'Azer FARHAT', role: 'Full-Stack Developer', img: '/azer.jpeg' },
+  { name: 'Anas BOUSSEHMINE', role: 'Développeur ERP', img: '/anas.png', linkedin: 'https://www.linkedin.com/in/anas-boussehmine/', website: 'https://www.anasbo.com/' },
+  { name: 'Azer FARHAT', role: 'Développeur ERP', img: '/azer.jpeg', linkedin: 'https://www.linkedin.com/in/azer-farhat/', website: 'https://azer-mocha.vercel.app/' },
 ]
 
 export function Contact() {
@@ -65,7 +65,7 @@ export function Contact() {
                 key={member.name}
                 className="text-center p-6 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all duration-300"
               >
-                <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden">
+                <div className="w-32 h-32 rounded-full mx-auto mb-3 overflow-hidden">
                   <Image
                     src={member.img}
                     alt={member.name}
@@ -75,6 +75,15 @@ export function Contact() {
                   />
                 </div>
                 <h3 className="text-base font-heading font-semibold">{member.name}</h3>
+                <p className="text-sm text-muted-foreground mt-0.5">Full-Stack Developer</p>
+                <div className="flex justify-center gap-3 mt-2">
+                  <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                    <Linkedin className="w-4 h-4" />
+                  </a>
+                  <a href={member.website} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                    <Globe className="w-4 h-4" />
+                  </a>
+                </div>
                 <p className="text-sm text-muted-foreground mt-0.5">{member.role}</p>
               </div>
             ))}
@@ -137,7 +146,7 @@ export function Contact() {
                 <label className="text-sm text-muted-foreground">Taille de la flotte</label>
                 <select
                   name="fleetSize"
-                  className="w-full rounded-lg bg-secondary/50 border border-border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all"
+                  className="w-full rounded-lg bg-black text-white border border-border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all"
                 >
                   <option>1-20 véhicules</option>
                   <option>21-50 véhicules</option>
