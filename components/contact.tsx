@@ -9,8 +9,8 @@ import { ArrowRight, Loader2, Linkedin, Globe } from 'lucide-react'
 import { toast } from 'sonner'
 
 const team = [
-  { name: 'Anas BOUSSEHMINE', role: 'Développeur ERP', img: '/anas.png', linkedin: 'https://www.linkedin.com/in/anas-boussehmine/', website: 'https://www.anasbo.com/' },
-  { name: 'Azer FARHAT', role: 'Développeur ERP', img: '/azer.jpeg', linkedin: 'https://www.linkedin.com/in/azer-farhat/', website: 'https://azer-mocha.vercel.app/' },
+  { name: 'Anas BOUSSEHMINE', img: '/anas.png', linkedin: 'https://www.linkedin.com/in/anas-boussehmine/', website: 'https://www.anasbo.com/' },
+  { name: 'Azer FARHAT', img: '/azer.jpeg', linkedin: 'https://www.linkedin.com/in/azer-farhat/', website: 'https://azer-mocha.vercel.app/' },
 ]
 
 export function Contact() {
@@ -84,7 +84,6 @@ export function Contact() {
                     <Globe className="w-4 h-4" />
                   </a>
                 </div>
-                <p className="text-sm text-muted-foreground mt-0.5">{member.role}</p>
               </div>
             ))}
           </div>
